@@ -148,7 +148,7 @@ var play_music_with_audiobook_sample = function(audiobook_sample){
 }
 
 
-app.get('/', function(req, res) {
+app.get('/', function(req, ejs) {
     var context = {};
 
     // hard-coded test
