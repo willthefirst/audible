@@ -5,9 +5,40 @@
     <title>Parker Parker Parker</title>
   </head>
   <body>
+
+ <div id="amazon-root"></div>
+ <script type="text/javascript">
+
+    window.onAmazonLoginReady = function() {
+      amazon.Login.setClientId('amzn1.application-oa2-client.b4410251e2674ae09b17315f30a75947');
+    };
+    (function(d) {
+      var a = d.createElement('script'); a.type = 'text/javascript';
+      a.async = true; a.id = 'amazon-login-sdk';
+      a.src = 'https://api-cdn.amazon.com/sdk/login1.js';
+      d.getElementById('amazon-root').appendChild(a);
+    })(document);
+
+ </script>
   <div class="container">
     <h1>Audible Soundtrack</h1>
     <h2>Parker Parker Parker</h2>
+    <a href id="LoginWithAmazon">
+    <img border="0" alt="Login with Amazon"
+        src="https://images-na.ssl-images-amazon.com/images/G/01/lwa/btnLWA_gold_156x32.png"
+        width="156" height="32" />
+
+        <script type="text/javascript">
+
+        document.getElementById('LoginWithAmazon').onclick = function() {
+        options = { scope : 'profile' };
+        amazon.Login.authorize(options,
+            'http://localhost:8080/auth');
+        return false;
+        };
+
+     </script>
+ </a>
   </div>
   <script src="/js/jquery.min.js"></script>
   <script src="/js/main.js"></script>
