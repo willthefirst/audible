@@ -1,5 +1,5 @@
 var express = require('express');
-var http = require('http');
+var http = require('https');
 var querystring = require('querystring');
 var retext = require('retext');
 var inspect = require('unist-util-inspect');
@@ -21,36 +21,48 @@ var ACCESS_TOKEN = "figuremeout";
 
 var  test_passage = "‘So do I,’ said Gandalf, ‘and so do all who live to see such times. But that is not for them to decide. All we have to decide is what to do with the time that is given us. And already, Frodo, our time is beginning to look black. The Enemy is fast becoming very strong. His plans are far from ripe, I think, but they are ripening. We shall be hard put to it. We should be very hard put to it, even if it were not for this dreadful chance."
 
-var get_stream_from_audible = function(){
+
+var get_stream_from_audible = function(ACCESS_TOKEN, callback){
     var options = {
       host: 'api.audible.com',
       path: '/1.0/content/B0099RKRTY/licenserequest',
       method: 'POST',
-      port: 80,
+      port: 443,
       headers: {
-        'Authorization': ('bearer ' + ACCESS_TOKEN),
+        'Authorization': ('Bearer ' + ACCESS_TOKEN),
         'Client-ID': CLIENT_ID,
-        'Content-Type': 'application/x-www-form-urlencoded',
-        'Content-Length': Buffer.byteLength(data),
+        'Content-Type': 'application/json',
         'Accept' : 'application/json'
       }
     }
 
-    var data = querystring.stringify({
-      "Consumption_type":"Streaming",
-      "Drm_type":"Hls"
+    var data = JSON.stringify({
+      "consumption_type": "Streaming",
+      "drm_type":"Hls"
     });
 
+
     var req = http.request(options, function(res){
+      var body = [];
+      var result;
       res.on('data', function(chunk){
-        console.log('data');
+        body.push(chunk);
+        body = JSON.parse(Buffer.concat(body).toString());
+        console.log(body.content_license.license_response);
+        callback(body.content_license.license_response);
       });
     }).on("error", function(e){
-      console.log("Got error: " + JSON.stringify(e ));
-    });
+      console.log("Got error: " + e.message);
+    }).on('end', function() {
+      body = Buffer.concat(body).toString();
+
+          // at this point, `body` has the entire request body stored in it as a string
+    });;
+
 
     req.write(data);
     req.end();
+  // console.log(req)
 }
 
 
@@ -159,16 +171,28 @@ app.get('/', function(req, ejs) {
     });
 
   ejs.render(index, context);
+
 });
 
 
 app.get('/auth', function(req, res) {
   ACCESS_TOKEN = req.query.access_token;
-  console.log(typeof api);
-  var _api = new api(ACCESS_TOKEN, CLIENT_ID);
-  _api.getProductStream('B0099RKRTY');
-  res.redirect('/stream');
+  // _api(ACCESS_TOKEN, CLIENT_ID);
+  get_stream_from_audible(ACCESS_TOKEN, function(url) {
+    console.log(url)
+
+    res.redirect(url);
+  });
+
+
 });
+
+app.get('/stream', function(req, res){
+  get_stream_from_audible(function(url) {
+    console.log(url)
+    res.redirect(url);
+  });
+})
 
 app.timeout = 0;
 app.listen(process.env.PORT || 8080);

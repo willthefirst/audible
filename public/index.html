@@ -33,7 +33,7 @@
         <script type="text/javascript">
 
         document.getElementById('LoginWithAmazon').onclick = function() {
-        options = { scope : 'profile' };
+        options = { scope : 'audible:content_read' };
         amazon.Login.authorize(options,
             'http://localhost:8080/auth');
         return false;
