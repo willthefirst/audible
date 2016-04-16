@@ -5,6 +5,8 @@ var retext = require('retext');
 var inspect = require('unist-util-inspect');
 var sentiment = require('retext-sentiment');
 var api = require('audible-api');
+var ejs = require('ejs');
+
 
 var app = express();
 app.use(express.static('public'));
@@ -16,6 +18,8 @@ app.use(express.static('public'));
 var CLIENT_ID = 'amzn1.application-oa2-client.b4410251e2674ae09b17315f30a75947';
 var CLIENT_SECRET = '4677872c4c7ac6c19ffa305fea1dc8015a592fff2958ff89fa5ae55bbb56dbf3';
 var ACCESS_TOKEN = "figuremeout";
+
+var  test_passage = "‘So do I,’ said Gandalf, ‘and so do all who live to see such times. But that is not for them to decide. All we have to decide is what to do with the time that is given us. And already, Frodo, our time is beginning to look black. The Enemy is fast becoming very strong. His plans are far from ripe, I think, but they are ripening. We shall be hard put to it. We should be very hard put to it, even if it were not for this dreadful chance."
 
 var get_stream_from_audible = function(){
     var options = {
@@ -144,26 +148,17 @@ var play_music_with_audiobook_sample = function(audiobook_sample){
 }
 
 
-
-// hard-coded test
-
-var  passage = "‘So do I,’ said Gandalf, ‘and so do all who live to see such times. But that is not for them to decide. All we have to decide is what to do with the time that is given us. And already, Frodo, our time is beginning to look black. The Enemy is fast becoming very strong. His plans are far from ripe, I think, but they are ripening. We shall be hard put to it. We should be very hard put to it, even if it were not for this dreadful chance."
-
-<<<<<<< 3c7bfa034ccf01c021f8380faa603e15a5166b63
-play_music_with_audiobook_sample(passage);
-
-=======
-retext().use(sentiment).use(function () {
-    return function (cst) {
-        // console.log(inspect(cst));
-    };
-}).process(
-  passage
-);
->>>>>>> api
-
 app.get('/', function(req, res) {
-  res.render(index);
+    var context = {};
+
+    // hard-coded test
+    get_sentiment_of_audiobook_sample(test_passage, function(sentiment){
+        var music_sample = get_sample_with_sentiment(sentiment);
+        console.log(music_sample);
+        context.music_sample = music_sample
+    });
+
+  ejs.render(index, context);
 });
 
 
