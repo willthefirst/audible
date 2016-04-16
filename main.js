@@ -69,6 +69,7 @@ var music_corpus = {
     }],
 };
 
+
 var get_sample_with_sentiment = function(sentiment){
     return get_random_from_array(music_corpus[sentiment]);
 }
@@ -87,16 +88,17 @@ var play_music_with_audiobook_sample = function(audiobook_sample){
 }
 
 
+// sentiment analysis
 
+var  passage = "‘So do I,’ said Gandalf, ‘and so do all who live to see such times. But that is not for them to decide. All we have to decide is what to do with the time that is given us. And already, Frodo, our time is beginning to look black. The Enemy is fast becoming very strong. His plans are far from ripe, I think, but they are ripening. We shall be hard put to it. We should be very hard put to it, even if it were not for this dreadful chance."
 
-
-
-
-
-
-
-
-
+retext().use(sentiment).use(function () {
+    return function (cst) {
+        console.log(inspect(cst));
+    };
+}).process(
+  passage
+);
 
 app.get('/', function(req, res) {
   res.render(index);
