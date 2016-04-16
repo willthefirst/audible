@@ -11,6 +11,9 @@ var ejs = require('ejs');
 var app = express();
 app.use(express.static('public'));
 
+app.set('view engine', 'ejs');
+
+
 //////////////////
 //options
 //////////////////
@@ -170,7 +173,7 @@ app.get('/', function(req, ejs) {
         context.music_sample = music_sample
     });
 
-  ejs.render(index, context);
+  ejs.render('index', context);
 
 });
 
@@ -190,7 +193,8 @@ app.get('/auth', function(req, res) {
 app.get('/stream', function(req, res){
   get_stream_from_audible(function(url) {
     console.log(url)
-    res.redirect(url);
+    html = new ejs({url: '/stream.ejs'}).render({stream: url});
+    res.render(html)
   });
 })
 
