@@ -77,57 +77,57 @@ var get_random_from_array = function(array){
 // keyed by sentiment
 var music_corpus = {
     '-5': [{ // can have multiple musical samples for each sentiment
-        sample_id : 1,
+        filename: 'lotr.mp3',
         start_time: 1,
         end_time: 2,
     }],
     '-4': [{
-        sample_id : 1,
+        filename: 'lotr.mp3',
         start_time: 1,
         end_time: 2,
     }],
     '-3': [{
-        sample_id : 1,
+        filename: 'lotr.mp3',
         start_time: 1,
         end_time: 2,
     }],
     '-2': [{
-        sample_id : 1,
+        filename: 'lotr.mp3',
         start_time: 1,
         end_time: 2,
     }],
     '-1': [{
-        sample_id : 1,
+        filename: 'lotr.mp3',
         start_time: 1,
         end_time: 2,
     }],
     '0': [{
-        sample_id : 1,
+        filename: 'lotr.mp3',
         start_time: 1,
         end_time: 2,
     }],
     '1': [{
-        sample_id : 1,
+        filename: 'lotr.mp3',
         start_time: 1,
         end_time: 2,
     }],
     '2': [{
-        sample_id : 1,
+        filename: 'lotr.mp3',
         start_time: 1,
         end_time: 2,
     }],
     '3': [{
-        sample_id : 1,
+        filename: 'lotr.mp3',
         start_time: 1,
         end_time: 2,
     }],
     '4': [{
-        sample_id : 1,
+        filename: 'lotr.mp3',
         start_time: 1,
         end_time: 2,
     }],
     '5': [{
-        sample_id : 1,
+        filename: 'lotr.mp3',
         start_time: 1,
         end_time: 2,
     }],

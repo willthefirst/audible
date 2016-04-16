@@ -6,8 +6,6 @@
   </head>
   <body>
 
-    <%= music_sample %>
-
  <div id="amazon-root"></div>
  <script type="text/javascript">
 
@@ -44,5 +42,14 @@
   </div>
   <script src="/js/jquery.min.js"></script>
   <script src="/js/main.js"></script>
+
+
+<%= music_sample %>
+ <script type="text/javascript">
+    var audio = new Audio('localhost:8080/static/<%= music_sample.filename %>');
+    audio.play();
+ </script>
+
+
   </body>
 </html>
