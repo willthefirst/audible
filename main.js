@@ -4,7 +4,7 @@ var querystring = require('querystring');
 var retext = require('retext');
 var inspect = require('unist-util-inspect');
 var sentiment = require('retext-sentiment');
-
+var api = require('audible-api');
 
 var app = express();
 app.use(express.static('public'));
@@ -149,8 +149,18 @@ var play_music_with_audiobook_sample = function(audiobook_sample){
 
 var  passage = "‘So do I,’ said Gandalf, ‘and so do all who live to see such times. But that is not for them to decide. All we have to decide is what to do with the time that is given us. And already, Frodo, our time is beginning to look black. The Enemy is fast becoming very strong. His plans are far from ripe, I think, but they are ripening. We shall be hard put to it. We should be very hard put to it, even if it were not for this dreadful chance."
 
+<<<<<<< 3c7bfa034ccf01c021f8380faa603e15a5166b63
 play_music_with_audiobook_sample(passage);
 
+=======
+retext().use(sentiment).use(function () {
+    return function (cst) {
+        // console.log(inspect(cst));
+    };
+}).process(
+  passage
+);
+>>>>>>> api
 
 app.get('/', function(req, res) {
   res.render(index);
@@ -159,6 +169,9 @@ app.get('/', function(req, res) {
 
 app.get('/auth', function(req, res) {
   ACCESS_TOKEN = req.query.access_token;
+  console.log(typeof api);
+  var _api = new api(ACCESS_TOKEN, CLIENT_ID);
+  _api.getProductStream('B0099RKRTY');
   res.redirect('/stream');
 });
 

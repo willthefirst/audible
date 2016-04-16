@@ -9,6 +9,7 @@
   "author": "Parker Parker Parker",
   "license": "ISC",
   "dependencies": {
+    "audible-api": "^0.2.0",
     "express": "^4.13.4",
     "http": "0.0.0",
     "querystring": "^0.2.0"
