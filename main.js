@@ -57,12 +57,57 @@ var get_random_from_array = function(array){
 // corpus of musical scores
 // keyed by sentiment
 var music_corpus = {
-    sad : [{ // can have multiple musical samples for each sentiment
+    '-5': [{ // can have multiple musical samples for each sentiment
         sample_id : 1,
         start_time: 1,
         end_time: 2,
     }],
-    happy : [{
+    '-4': [{
+        sample_id : 1,
+        start_time: 1,
+        end_time: 2,
+    }],
+    '-3': [{
+        sample_id : 1,
+        start_time: 1,
+        end_time: 2,
+    }],
+    '-2': [{
+        sample_id : 1,
+        start_time: 1,
+        end_time: 2,
+    }],
+    '-1': [{
+        sample_id : 1,
+        start_time: 1,
+        end_time: 2,
+    }],
+    '0': [{
+        sample_id : 1,
+        start_time: 1,
+        end_time: 2,
+    }],
+    '1': [{
+        sample_id : 1,
+        start_time: 1,
+        end_time: 2,
+    }],
+    '2': [{
+        sample_id : 1,
+        start_time: 1,
+        end_time: 2,
+    }],
+    '3': [{
+        sample_id : 1,
+        start_time: 1,
+        end_time: 2,
+    }],
+    '4': [{
+        sample_id : 1,
+        start_time: 1,
+        end_time: 2,
+    }],
+    '5': [{
         sample_id : 1,
         start_time: 1,
         end_time: 2,
@@ -77,7 +122,7 @@ var get_sample_with_sentiment = function(sentiment){
 
 var get_sentiment_of_audiobook_sample = function(audiobook_sample){
     // TODO: NLP
-    return 'sad';
+    return '-3';
 }
 
 
