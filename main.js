@@ -51,7 +51,7 @@ var get_stream_from_audible = function(){
 
 
 var get_random_from_array = function(array){
-    return array[Math.floor(Math.random()*items.length)];
+    return array[Math.floor(Math.random()*array.length)];
 }
 
 // corpus of musical scores
@@ -116,34 +116,41 @@ var music_corpus = {
 
 
 var get_sample_with_sentiment = function(sentiment){
-    return get_random_from_array(music_corpus[sentiment]);
-}
-
-
-var get_sentiment_of_audiobook_sample = function(audiobook_sample){
-    // TODO: NLP
-    return '-3';
-}
-
-
-var play_music_with_audiobook_sample = function(audiobook_sample){
-    var sentiment = get_sentiment_of_audiobook_sample(audiobook_sample);
-    var music_sample = get_sample_with_sentiment(sentiment);
-    // play_sample();
+    var sample = get_random_from_array(music_corpus[sentiment]);
+    return sample;
 }
 
 
 // sentiment analysis
+// NLP coolness
+var get_sentiment_of_audiobook_sample = function(audiobook_sample, callback){
+    retext().use(sentiment).use(function () {
+        return function (cst) {
+            var polarity = cst.data.polarity;
+            return callback(polarity);
+            //console.log(inspect(cst));
+        };
+    }).process(
+      audiobook_sample
+    );
+}
+
+
+var play_music_with_audiobook_sample = function(audiobook_sample){
+    get_sentiment_of_audiobook_sample(audiobook_sample, function(sentiment){
+        var music_sample = get_sample_with_sentiment(sentiment);
+        console.log(music_sample);
+    });
+}
+
+
+
+// hard-coded test
 
 var  passage = "‘So do I,’ said Gandalf, ‘and so do all who live to see such times. But that is not for them to decide. All we have to decide is what to do with the time that is given us. And already, Frodo, our time is beginning to look black. The Enemy is fast becoming very strong. His plans are far from ripe, I think, but they are ripening. We shall be hard put to it. We should be very hard put to it, even if it were not for this dreadful chance."
 
-retext().use(sentiment).use(function () {
-    return function (cst) {
-        console.log(inspect(cst));
-    };
-}).process(
-  passage
-);
+play_music_with_audiobook_sample(passage);
+
 
 app.get('/', function(req, res) {
   res.render(index);
