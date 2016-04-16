@@ -183,20 +183,18 @@ app.get('/auth', function(req, res) {
   // _api(ACCESS_TOKEN, CLIENT_ID);
   get_stream_from_audible(ACCESS_TOKEN, function(url) {
     console.log(url)
-
-    res.redirect(url);
+    res.render('stream', {stream: url})
   });
 
 
 });
-
-app.get('/stream', function(req, res){
-  get_stream_from_audible(function(url) {
-    console.log(url)
-    html = new ejs({url: '/stream.ejs'}).render({stream: url});
-    res.render(html)
-  });
-})
+//
+// app.get('/stream', function(req, res){
+//   get_stream_from_audible(function(url) {
+//     console.log(url)
+//     res.redirect('stream', {stream: url})
+//   });
+// })
 
 app.timeout = 0;
 app.listen(process.env.PORT || 8080);
