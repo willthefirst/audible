@@ -1,6 +1,10 @@
 var express = require('express');
 var http = require('http');
 var querystring = require('querystring');
+var retext = require('retext');
+var inspect = require('unist-util-inspect');
+var sentiment = require('retext-sentiment');
+
 
 var app = express();
 app.use(express.static('public'));
@@ -93,14 +97,16 @@ var play_music_with_audiobook_sample = function(audiobook_sample){
 
 
 
+
 app.get('/', function(req, res) {
   res.render(index);
 });
 
 
 app.get('/auth', function(req, res) {
-  console.log(req.query.access_token)
+  ACCESS_TOKEN = req.query.access_token;
+  res.redirect('/stream');
 });
 
-
+app.timeout = 0;
 app.listen(process.env.PORT || 8080);
