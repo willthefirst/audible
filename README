@@ -1,0 +1,10 @@
+## Todo
+
+- get an audible free account
+- configure an nlp Api to spit out important info about mood of text 
+  > http://www.jowanza.com/post/115530471149/sentiment-analysis-in-nodejs
+- set up audible Api to stream Lotr into the Api 
+- code Lotr soundtrack into Json about mood of each song 
+  > or actually:, here's automatic coding: https://developer.spotify.com/web-api/get-audio-features/
+- make music streaming from Spotify available on client 
+- make songs switch between one another depending on mood (fade in and out)
